@@ -6,58 +6,54 @@
 //
 
 import SwiftUI
-struct TaskEntry: Codable  {
-  let id: Int
-  let title: String
-}
+
+
 struct ContentView: View {
   
-  @State var weather : Weather?
-  init() {
-    loadData()
-  }
-  
+  @StateObject var viewModel = WeatherViewModel()
+  var hours = ["one", "two", "three"]
   var body: some View {
-    VStack{
-      Button(action: signIn) {
-        Text("Sign In")
-      }
-      
-      if weather?.timezone != nil {
-        Text(weather!.timezone)
-      } else {
-        Text("Nil")
-      }
+    ZStack{
+      Color.blue
+        .ignoresSafeArea()
+      VStack{
+        if let weather = viewModel.weather?.timezone {
+          Text(String(describing: weather))
+            .font(.title)
+            .padding()
+        } else {
+          Text("Loading...")
+        }
+        if let description = viewModel.weather?.current?.weather?.first?.weatherDescription {
+          Text( String(describing: description))
+        } else {
+          Text("No Description")
+        }
+        if let temperature = viewModel.weather?.current?.temp {
+          let f = temperature.KtoF()
+          Text(String(format: "%.0f ℉", f ))
+            .font(.largeTitle)
+            .scaleEffect(3)
+            .padding()
+        }
+        if let hourly = viewModel.weather?.hourly {
+          HStack{
+            HourlyView(hourly: hourly)
+          }
+        }
+        if let daily = viewModel.weather?.daily {
+            DailyView(daily: daily)
+        }
+        Spacer()
+      }.foregroundColor(.white)
     }
   }
   
   func signIn() {
     print("Pressed")
   }
-  
-  func loadData(lat : Double = 33.8366,
-                lon : Double = -117.9143,
-                appID : String = "99d60904ebf668c25c960096c8a6c2a2") {
-    let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&appid=\(appID)"
-    print(urlString)
-    guard let url = URL(string: urlString) else {
-      print("Your API end point is Invalid")
-      return
-    }
-    print(url)
-    let request = url
-    URLSession.shared.dataTask(with: request) { data, response, error in
-      if let jsonData = data {
-        if let response = try? JSONDecoder().decode(Weather.self, from: jsonData) {
-          DispatchQueue.main.async {
-            self.weather = response
-          }
-          return
-        }
-      }
-    }.resume()
-  }
 }
+
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
