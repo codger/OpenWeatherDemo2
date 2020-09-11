@@ -20,6 +20,8 @@ struct DailyView: View {
                Text (dayOfWeekFrom(date: time))
             }
             Spacer()
+            Image(systemName: "cloud.sun")
+            Spacer()
             if let temperature = day.temp?.max {
               Text(String(format: "%.0f ℉", temperature.KtoF() ))
             }
