@@ -69,13 +69,11 @@ enum Icon: String, Codable {
 enum Main: String, Codable {
     case clear = "Clear"
     case haze = "Haze"
-    case smoke = "Smoke"
 }
 
 enum Description: String, Codable {
     case clearSky = "clear sky"
     case haze = "haze"
-    case smoke = "smoke"
 }
 
 // MARK: - Daily
