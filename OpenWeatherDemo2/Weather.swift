@@ -7,55 +7,55 @@ import Foundation
 
 // MARK: - Weather
 struct Weather: Codable {
-    var lat, lon: Double?
-    var timezone: String?
-    var timezoneOffset: Int?
-    var current: Current?
-    var minutely: [Minutely]?
-    var hourly: [Current]?
-    var daily: [Daily]?
+    let lat, lon: Double?
+    let timezone: String?
+    let timezoneOffset: Int?
+    let current: Current?
+    let minutely: [Minutely]?
+    let hourly: [Current]?
+    let daily: [Daily]?
 
     enum CodingKeys: String, CodingKey {
         case lat, lon, timezone
-        case timezoneOffset = "timezone_offset"
+        case timezoneOffset
         case current, minutely, hourly, daily
     }
 }
 
 // MARK: - Current
 struct Current: Codable {
-    var dt, sunrise, sunset: Int?
-    var temp, feelsLike: Double?
-    var pressure, humidity: Int?
-    var dewPoint, uvi: Double?
-    var clouds, visibility: Int?
-    var windSpeed: Double?
-    var windDeg: Int?
-    var weather: [WeatherElement]?
-    var pop: Int?
+    let dt, sunrise, sunset: Int?
+    let temp, feelsLike: Double?
+    let pressure, humidity: Int?
+    let dewPoint, uvi: Double?
+    let clouds, visibility: Int?
+    let windSpeed: Double?
+    let windDeg: Int?
+    let weather: [WeatherElement]?
+    let pop: Int?
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
-        case feelsLike = "feels_like"
+        case feelsLike
         case pressure, humidity
-        case dewPoint = "dew_point"
+        case dewPoint
         case uvi, clouds, visibility
-        case windSpeed = "wind_speed"
-        case windDeg = "wind_deg"
+        case windSpeed
+        case windDeg
         case weather, pop
     }
 }
 
 // MARK: - WeatherElement
 struct WeatherElement: Codable {
-    var id: Int?
-    var main: Main?
-    var weatherDescription: Description?
-    var icon: Icon?
+    let id: Int?
+    let main: Main?
+    let weatherDescription: Description?
+    let icon: Icon?
 
     enum CodingKeys: String, CodingKey {
         case id, main
-        case weatherDescription = "description"
+        case weatherDescription
         case icon
     }
 }
@@ -78,39 +78,39 @@ enum Description: String, Codable {
 
 // MARK: - Daily
 struct Daily: Codable {
-    var dt, sunrise, sunset: Int?
-    var temp: Temp?
-    var feelsLike: FeelsLike?
-    var pressure, humidity: Int?
-    var dewPoint, windSpeed: Double?
-    var windDeg: Int?
-    var weather: [WeatherElement]?
-    var clouds, pop: Int?
-    var uvi: Double?
+    let dt, sunrise, sunset: Int?
+    let temp: Temp?
+    let feelsLike: FeelsLike?
+    let pressure, humidity: Int?
+    let dewPoint, windSpeed: Double?
+    let windDeg: Int?
+    let weather: [WeatherElement]?
+    let clouds, pop: Int?
+    let uvi: Double?
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
-        case feelsLike = "feels_like"
+        case feelsLike
         case pressure, humidity
-        case dewPoint = "dew_point"
-        case windSpeed = "wind_speed"
-        case windDeg = "wind_deg"
+        case dewPoint
+        case windSpeed
+        case windDeg
         case weather, clouds, pop, uvi
     }
 }
 
 // MARK: - FeelsLike
 struct FeelsLike: Codable {
-    var day, night, eve, morn: Double?
+    let day, night, eve, morn: Double?
 }
 
 // MARK: - Temp
 struct Temp: Codable {
-    var day, min, max, night: Double?
-    var eve, morn: Double?
+    let day, min, max, night: Double?
+    let eve, morn: Double?
 }
 
 // MARK: - Minutely
 struct Minutely: Codable {
-    var dt, precipitation: Int?
+    let dt, precipitation: Int?
 }
